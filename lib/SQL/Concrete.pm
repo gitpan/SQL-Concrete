@@ -2,7 +2,7 @@ use 5.012;
 use warnings;
 
 package SQL::Concrete;
-$SQL::Concrete::VERSION = '1.000';
+$SQL::Concrete::VERSION = '1.001';
 # ABSTRACT: render SQL from fragments and placeholders from data structures
 
 use Exporter::Tidy
@@ -21,8 +21,8 @@ sub sql_values { my @stuff = @_; bless sub { $_[0]->render_values( @stuff ) }, _
 sub sql_select { my @stuff = @_; bless sub { $_[0]->render_select( @stuff ) }, __PACKAGE__ }
 
 package SQL::Concrete::Renderer;
-$SQL::Concrete::Renderer::VERSION = '1.000';
-use Object::Tiny::Lvalue qw( dollars alias_id placeholder_id prev_item bind );
+$SQL::Concrete::Renderer::VERSION = '1.001';
+use Object::Tiny::Lvalue qw( alias_id prev_item bind );
 
 # our code references are blessed into this package
 # so that we can distinguish them from other code references
@@ -34,7 +34,6 @@ sub render {
 	my $self = shift;
 	local $self->{'bind'} = [];
 	local $self->{'alias_id'} = 0;
-	local $self->{'placeholder_id'} = $self->dollars ? 1 : 0;
 	my $sql = $self->render_sql( @_ );
 	return ( $sql, @{ $self->bind } );
 }
@@ -51,7 +50,7 @@ sub render_sql {
 
 		my $append
 			= ( not $type )         ? $self->prev_item = $item
-			: ( 'SCALAR' eq $type ) ? ( $self->bind_or_render_values( $$item ) )[0]
+			: ( 'SCALAR' eq $type ) ? $self->render_bind( $$item )
 			: ( 'ARRAY'  eq $type ) ? ( @$item ? join ', ', $self->bind_or_render_values( @$item ) : $self->error( 'empty array' ) )
 			: ( _CODE_   eq $type ) ? $item->( $self )
 			: ( 'HASH'   eq $type ) ? ( keys %$item ? undef : '1=1' ) # further handled below
@@ -89,12 +88,11 @@ sub bind_or_render_values {
 	map {
 		my $type = ref;
 		$self->error( "unrecognized $type value in aggregate" ) if $type and _CODE_ ne $type;
-		$type ? $_->( $self ) : do {
-			push @{ $self->bind }, $_;
-			map { $_ ? '$'.$_++ : '?' } $self->placeholder_id;
-		};
+		$type ? $_->( $self ) : $self->render_bind( $_ );
 	} @_;
 }
+
+sub render_bind { push @{ $_[0]{'bind'} }, $_[1]; '?' }
 
 sub render_set {
 	my $self = shift;
@@ -185,7 +183,7 @@ SQL::Concrete - render SQL from fragments and placeholders from data structures
 
 =head1 VERSION
 
-version 1.000
+version 1.001
 
 =head1 SYNOPSIS
 
