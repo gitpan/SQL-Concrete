@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use 5.012;
+use 5.006;
 
 use ExtUtils::MakeMaker;
 
@@ -18,12 +18,13 @@ my %WriteMakefileArgs = (
   "DISTNAME" => "SQL-Concrete",
   "EXE_FILES" => [],
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.012",
+  "MIN_PERL_VERSION" => "5.006",
   "NAME" => "SQL::Concrete",
   "PREREQ_PM" => {
     "Carp" => 0,
     "Exporter::Tidy" => 0,
     "Object::Tiny::Lvalue" => 0,
+    "strict" => 0,
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
@@ -31,10 +32,9 @@ my %WriteMakefileArgs = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "Test::Differences" => 0,
-    "Test::More" => "0.88",
-    "strict" => 0
+    "Test::More" => "0.88"
   },
-  "VERSION" => "1.001",
+  "VERSION" => "1.002",
   "test" => {
     "TESTS" => "t/*.t"
   }

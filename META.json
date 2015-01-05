@@ -24,7 +24,8 @@
             "Carp" : "0",
             "Exporter::Tidy" : "0",
             "Object::Tiny::Lvalue" : "0",
-            "perl" : "5.012",
+            "perl" : "5.006",
+            "strict" : "0",
             "warnings" : "0"
          }
       },
@@ -34,8 +35,7 @@
             "File::Find" : "0",
             "File::Temp" : "0",
             "Test::Differences" : "0",
-            "Test::More" : "0.88",
-            "strict" : "0"
+            "Test::More" : "0.88"
          }
       }
    },
@@ -50,6 +50,6 @@
          "url" : "git://github.com/ap/SQL-Concrete"
       }
    },
-   "version" : "1.001"
+   "version" : "1.002"
 }
 

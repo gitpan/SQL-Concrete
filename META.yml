@@ -8,7 +8,6 @@ build_requires:
   File::Temp: 0
   Test::Differences: 0
   Test::More: 0.88
-  strict: 0
 configure_requires:
   ExtUtils::MakeMaker: 0
 dynamic_config: 0
@@ -22,10 +21,11 @@ requires:
   Carp: 0
   Exporter::Tidy: 0
   Object::Tiny::Lvalue: 0
-  perl: 5.012
+  perl: 5.006
+  strict: 0
   warnings: 0
 resources:
   bugtracker: http://github.com/ap/SQL-Concrete/issues
   homepage: http://github.com/ap/SQL-Concrete
   repository: git://github.com/ap/SQL-Concrete
-version: 1.001
+version: 1.002

@@ -1,8 +1,9 @@
-use 5.012;
+use 5.006;
+use strict;
 use warnings;
 
 package SQL::Concrete;
-$SQL::Concrete::VERSION = '1.001';
+$SQL::Concrete::VERSION = '1.002';
 # ABSTRACT: render SQL from fragments and placeholders from data structures
 
 use Exporter::Tidy
@@ -21,7 +22,7 @@ sub sql_values { my @stuff = @_; bless sub { $_[0]->render_values( @stuff ) }, _
 sub sql_select { my @stuff = @_; bless sub { $_[0]->render_select( @stuff ) }, __PACKAGE__ }
 
 package SQL::Concrete::Renderer;
-$SQL::Concrete::Renderer::VERSION = '1.001';
+$SQL::Concrete::Renderer::VERSION = '1.002';
 use Object::Tiny::Lvalue qw( alias_id prev_item bind );
 
 # our code references are blessed into this package
@@ -183,7 +184,7 @@ SQL::Concrete - render SQL from fragments and placeholders from data structures
 
 =head1 VERSION
 
-version 1.001
+version 1.002
 
 =head1 SYNOPSIS
 

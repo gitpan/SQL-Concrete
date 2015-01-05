@@ -1,8 +1,9 @@
-use 5.012;
+use 5.006;
+use strict;
 use warnings;
 
 package SQL::Concrete::Dollars;
-$SQL::Concrete::Dollars::VERSION = '1.001';
+$SQL::Concrete::Dollars::VERSION = '1.002';
 # ABSTRACT: use SQL::Concrete with dollar placeholders
 
 use SQL::Concrete ':noncore';
@@ -11,7 +12,7 @@ BEGIN { our @ISA = 'SQL::Concrete' } # inherit import()
 sub sql_render { SQL::Concrete::Renderer::Dollars->new->render( @_ ) }
 
 package SQL::Concrete::Renderer::Dollars;
-$SQL::Concrete::Renderer::Dollars::VERSION = '1.001';
+$SQL::Concrete::Renderer::Dollars::VERSION = '1.002';
 BEGIN { our @ISA = 'SQL::Concrete::Renderer' }
 
 sub render {
@@ -40,7 +41,7 @@ SQL::Concrete::Dollars - use SQL::Concrete with dollar placeholders
 
 =head1 VERSION
 
-version 1.001
+version 1.002
 
 =head1 SYNOPSIS
 
